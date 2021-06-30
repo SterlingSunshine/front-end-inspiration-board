@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { useState } from 'react';   
+import dotenv from  'dotenv'
+import { useState, useEffect } from 'react';  
+import Board from './Board';
 
 ///////////////////////////////////////////////////////////////////////////
 // API CALL FUNCTIONS // ALL-BOARD-RELATED API CALL FUNCTIONS are HERE (in the BoardList.js)//
@@ -51,16 +53,32 @@ import { useState } from 'react';
 
 
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
+
 const BoardList = () => {
-
     // GET ALL BOARDS -- by ID then you can parse out the title?
-    const allBoards = axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
     // set drop down list of all board titles
-    console.log(allBoards)
+    // return generateBoardListItems();
+    const [boardItems, setBoardItems] = useState([])
 
-    return (
-        <h2>Board List</h2>
-    );
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
+        .then((response) => {
+            setBoardItems(response.data.boards_list)
+        })
+        .catch((error) => {
+            console.log(error.response.data.message)
+        });
+    }, []);
+
+    const generateBoardListItemComponents = (items) => {
+        return <ol className="boardItems">
+            {items.map((item) => { 
+                return <li key={item.id}>{item.title}</li> 
+            })}
+        </ol>
+    }
+
+    return generateBoardListItemComponents(boardItems)
 };
 
 export default BoardList;
