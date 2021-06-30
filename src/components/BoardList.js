@@ -90,7 +90,8 @@ STEP 1: Plan the Component
 BoardList is a container component
 We want to have the following UI displayed via the BoardList Component:
     ** The BoardList should be a drop down or scroll menu that a user can select a board from
-    ** The BoardList should have an array --  List of Boards that it 
+    ** The BoardList should have an array --  List of Boards -- and renders the boardTitles as a dropdown element
+    ** https://www.newline.co/@andreeamaco/react-dropdown-tutorial-for-beginners-create-a-dropdown-menu-from-scratch--9831d197
     ** GET (s) from the DB via a function like getAllBoards -- and presents all the titles
         ** Where should the function getAllBoards live?? App.js??
 */
