@@ -4,43 +4,20 @@ import dotenv from  'dotenv'
 import { useState, useEffect } from 'react';  
 import Board from './Board';
 
-///////////////////////////////////////////////////////////////////////////
-// API CALL FUNCTIONS // ALL-BOARD-RELATED API CALL FUNCTIONS are HERE (in the BoardList.js)//
-///////////////////////////////////////////////////////////////////////////
-
-
-// POST NEW BOARD
-// newBoard = () =>
-//     axios
-//     .post()`${process.env.REACT_APP_BACKEND_URL}/boards`, {"title":title, "owner":owner})
-//     .then((response) => {
-//         console.log(
-//             "...",
-//             response.data
-//         );
-//     .catch((error) => {
-//         console.log(
-//             "...",
-//             error.response.status
-//         );
-//         console.log(
-//             "...",
-//             error.response.data
-//         );
-//     }
-//     });
 
 ///////////////////////////////////////////////////////////////////////////
-// EVENT-HANDLING-FUNCTIONS
+///////////////////////// API CALL FUNCTIONS //////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////
+/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
+///////////////////////////////////////////////////////////////////////////
 // EVENT1: User Select a Board from the BoardList
-// EVENT2: User Clicks the Show/Hide button(s) for New Board Form
-// EVENT3: User Submits the New Board Form
 
-//??????//
-// Is this an Event Handling situation? :
-//??????// 
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////// STATE SITUATIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
 // const setSelectedBoard = (boardId) => {
 //     // set selected board
 //     setActiveBoardId(boardID)
@@ -49,14 +26,8 @@ import Board from './Board';
 // SETTING STATE // const [pieceOfState, setPieceOfState] = useState('Initial value for pieceOfState.');
 // UPDATING STATE // setPieceOfState('New value of pieceOfState.');
 
-
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
-
-const BoardList = () => {
-    // GET ALL BOARDS -- by ID then you can parse out the title?
-    // set drop down list of all board titles
-    // return generateBoardListItems();
-    
+const BoardList = ({onBoardSelectCallback}) => {
     const [boardItems, setBoardItems] = useState([])
 
     useEffect(() => {
@@ -65,24 +36,30 @@ const BoardList = () => {
             setBoardItems(response.data.boards_list)
         })
         .catch((error) => {
-            console.log(error.response.data.message)
+            console.log(error)
         });
     }, []);
 
+    const onBoardSelectChange = (event) => {                       // event handler
+        const selectedItemId = event.target.value                  // assign the value of  ' event.target.value '  to  variable selectedItemId 
+        const item = boardItems.find(i => i.id == selectedItemId)  // item holds the value of boardItems (which is the list of board objects retrieved from the get request {title: '', owner: ''})
+        onBoardSelectCallback(item)                                // .find built-in function returns the value of the first element in the provided array that satisfies the provided testing function
+    }                                                              // in this case - the .find is searching the list for selectedItemId (aka the event.target.value of the selected option)
+
     const generateBoardListItemComponents = (items) => {
-        return <select className="boardItems">
+        return <select className="boardItems" onChange={onBoardSelectChange}>
+            <option default>Select Your Board</option>
             {items.map((item) => { 
-                return <option key={item.id}> {item.title}</option> 
+                return <option key={item.id} value={item.id}>{item.title}</option> 
             })}
         </select>
     }
-
     return generateBoardListItemComponents(boardItems)
 };
 
 export default BoardList;
 
-
+/*when the board is selected -- PASS THE (( variable = selectedBoard should be the BOARD-ID to the CARDLIST via the App component)) COMPONENT
 
 /*
 STEP 1: Plan the Component 
@@ -94,17 +71,7 @@ We want to have the following UI displayed via the BoardList Component:
     ** GET (s) from the DB via a function like getAllBoards -- and presents all the titles
         ** Where should the function getAllBoards live?? App.js??
 */
-/*
 
-    const generateBoardListItemComponents = (items) => {
-        return <ol className="boardItems">
-            {items.map((item) => { 
-                return <li key={item.id}>{item.title}</li> 
-            })}
-        </ol>
-    }
-
-*/
 /*
 STEP 2: Define Component:
 To define a component, we will follow these steps:

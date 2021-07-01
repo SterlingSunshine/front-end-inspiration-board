@@ -2,29 +2,61 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 
-// Event Handling Functions
+///////////////////////////////////////////////////////////////////////////
+///////////////////////// API CALL FUNCTIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-/*
-<button onClick={}>Show New Board Form</button>
-<button>Hide New Board Form</button>
-*/
 
-// set the STATE for show/hide
-// const [showForm, setShowForm] = useState('');
+///////////////////////////////////////////////////////////////////////////
+/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+// EVENT2: User Clicks the Show/Hide button(s) for New Board Form
+// EVENT3: User Submits the New Board Form
+
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////// STATE SITUATIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+////////////////////////////
+//////// show/hide ////////
+////////////////////////////
+// const toggler = () => {
+//     setToggler(!toggle);
+// }
+
+// const buttonText = toggle === true ? "Hide" : "Show";
+
+// let newBoard;
+// if(toggle) {
+//     newBoard = <NewBoardForm></NewBoardForm>
+// } else {
+//     newBoard = null;
+// }
+
+
 
 // FUNCTION that DEFINES the NewBoardForm Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
 const NewBoardForm = () => {
-
-    const [formFields, setFormFields] = useState ({ 
+                                    //SET FORM STATE//
+    const [formFields, setFormFields] = useState({ 
         title: '',
         owner: ''
     });
-
+                                    // name is a part of the React system - it's what it expects
+                                    // onSubmit EVENT HANDLER - POST to /boards endpoint in JSON format the submitted inputs
     const addNewBoard = (event) => {
         event.preventDefault();
-        axios.post(`${process.env.REACT_APP_BACKEND_URL}/boards`, {formFields})
+        console.log(formFields)
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/boards`, formFields)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-// name is a part of the React system - it's what it expects
+                                    // WHY -- You gotta wrap the formFields to Manage their current state/content at the time of the onSubmit event 
     const wrapUpdate = (event) => {
         if (event.target.name === 'title') {
             setFormFields({
@@ -42,13 +74,13 @@ const NewBoardForm = () => {
     return (
         <form onSubmit={addNewBoard} > 
         <div>
-                <lable htmlFor="boardTitle">Board Title</lable>
+                <label htmlFor="boardTitle">Board Title</label>
                 <input 
                     name="title" type="text"
                     value={formFields.title} onChange={wrapUpdate}/>
         </div>
         <div> 
-                <lable htmlFor="boardOwner">Board Owner</lable>
+                <label htmlFor="boardOwner">Board Owner</label>
                 <input 
                     name="owner" type="text"
                     value={formFields.owner} onChange={wrapUpdate}/>
@@ -61,9 +93,6 @@ const NewBoardForm = () => {
 }
 
 export default NewBoardForm;
-
-
-// in App.js
 
 /*
 STEP 1: Plan the Component 
