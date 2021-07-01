@@ -1,4 +1,5 @@
-import './App.css';                                             // we need to update the styling
+import './App.css';    
+import styled from 'styled-components'                                         // we need to update the styling
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';                                      // we need to use axios to connect to the backend
@@ -10,37 +11,17 @@ import NewBoardForm from './components/NewBoardForm'
 
 
 function App() {
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////// CARD STATES ////////////////////////////////////////////////////////////////////////////////////
-  const [currentCardLikes, setCurrentCardLikes] = useState(0)     // set the state of the card likes
-  // update card likes state in the app b/c you need to to get the update to the DB
-  const [activeCards, setActiveCards] = useState([])              // the state of cards needs to be at app level - the Cards list is a GET from DB
-
-  ///////////////// HIDE/SHOW THE NewBoardForm /////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////// HIDE/SHOW STATE NewBoardForm ///////////////////////////////////////////////////////////////////
   const [show, setShow] = useState(false)
 
-// USING TOGGLE DIDN'T WORK - WHY?// import Toggle from 'react-toggle' // npm install react-toggle --save
-//   const toggler = () => {
-//     setToggler(!toggle);
-// }
-//   const buttonText = toggle === true ? "Hide" : "Show";
-// let newBoard;
-// if(toggle) {
-//     newBoard = <NewBoardForm></NewBoardForm>
-// } else {
-//     newBoard = null;
-// }
-      // {newBoard}
-      // <button onClick={toggler}>{buttonText}</button>
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////// SELECTED BOARD STATES //////////////////////////////////////////////////////////////////////////
+  ///////////////// SELECTED BOARD STATE ///////////////////////////////////////////////////////////////////////////
   const defaultBoardItem = {
     title: '',
     owner: ''
   }
+
   const [selectedBoardItem, setSelectedBoardItem] =  useState(defaultBoardItem)         // set state for actively displayed/selected board   // store selectedBoard state by id
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,29 +35,50 @@ function App() {
     setSelectedBoardItem(item)
   }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// STYLED COMPONENTS  ///////////////////////////////////////////////////////////
+const AppContainer = styled.section`
+    margin: 20px auto;
+    font-family: 'Annie Use Your Telescope';
+    background:#666;
+    color:#fff;
+    `
 
-
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: darkblue;
+`;
+const Wrapper = styled.section`
+  padding: 2em;
+  background: lightblue;
+`;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>
-          Inspiration Board
-        </h1>
-      </header>
+
+    <AppContainer>
+    <Wrapper>
+      <Title>
+          <h1>
+            Inspiration Board
+          </h1>
+        </Title>
+    </Wrapper>
+
 
           <div>
             <h2>Boards</h2>
-            <p><BoardList onBoardSelectCallback={onBoardSelectCallback} ></BoardList> Selected Board</p>
-          </div>
+            <BoardList onBoardSelectCallback={onBoardSelectCallback} />
+          </div>  
 
           <div>
             <h2>Selected Boards</h2>
-            <Board title={selectedBoardItem.title} owner={selectedBoardItem.owner}></Board>
+            <Board title={selectedBoardItem.title} owner={selectedBoardItem.owner}/>
           </div>
 
           <div>
             <h2>Create A New Board</h2>
-            {show?<NewBoardForm></NewBoardForm>:null}
+            {show?<NewBoardForm/>:null}
             <button onClick={()=>setShow(!show)}> Hide/Show Form </button>
           </div>
           
@@ -86,10 +88,10 @@ function App() {
 
           <div>
             <h2>Cards List</h2>
-            {/* to grab the card list you can use     cards={selectedBoardItem.cards}    */}
+            {/* <CardList cards={selectedBoardItem.cards}/> */}
           </div>
 
-    </div>
+  </AppContainer>
   );
 }
 

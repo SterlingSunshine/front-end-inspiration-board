@@ -1,33 +1,39 @@
+import styled from 'styled-components'
 import React from 'react';
 import axios from 'axios';
 import dotenv from  'dotenv'
 import { useState, useEffect } from 'react';  
-import Board from './Board';
 
 
-///////////////////////////////////////////////////////////////////////////
-///////////////////////// API CALL FUNCTIONS //////////////////////////////
-///////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// STYLED COMPONENTS  ///////////////////////////////////////////////////////////
+const DropDownContainer = styled.select`
+    margin: 20px auto;
+    font-family: 'Annie Use Your Telescope';
+    color:#fff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-decoration:none;
+    color:#000;
+    background:#ffc;
+    display:block;
+    height:10em;
+    width:10em;
+    padding:1em;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    transform:rotate(5deg);
+    position:relative;
+    top:-10px;
+    `
 
-///////////////////////////////////////////////////////////////////////////
-/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
-///////////////////////////////////////////////////////////////////////////
-// EVENT1: User Select a Board from the BoardList
+const OptionContainer = styled.option`
 
-///////////////////////////////////////////////////////////////////////////
-/////////////////////////// STATE SITUATIONS //////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-
-// const setSelectedBoard = (boardId) => {
-//     // set selected board
-//     setActiveBoardId(boardID)
-// }
-
-// SETTING STATE // const [pieceOfState, setPieceOfState] = useState('Initial value for pieceOfState.');
-// UPDATING STATE // setPieceOfState('New value of pieceOfState.');
+    `
 
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
 const BoardList = ({onBoardSelectCallback}) => {
+
     const [boardItems, setBoardItems] = useState([])
 
     useEffect(() => {
@@ -47,19 +53,24 @@ const BoardList = ({onBoardSelectCallback}) => {
     }                                                              // in this case - the .find is searching the list for selectedItemId (aka the event.target.value of the selected option)
 
     const generateBoardListItemComponents = (items) => {
-        return <select className="boardItems" onChange={onBoardSelectChange}>
-            <option default>Select Your Board</option>
+        return <DropDownContainer className="boardItems" onChange={onBoardSelectChange}>
+            <OptionContainer default>Select Your Board</OptionContainer>
             {items.map((item) => { 
-                return <option key={item.id} value={item.id}>{item.title}</option> 
+                return <OptionContainer key={item.id} value={item.id}>{item.title}</OptionContainer> 
             })}
-        </select>
+        </DropDownContainer>
     }
     return generateBoardListItemComponents(boardItems)
 };
 
 export default BoardList;
 
-/*when the board is selected -- PASS THE (( variable = selectedBoard should be the BOARD-ID to the CARDLIST via the App component)) COMPONENT
+
+
+
+
+
+
 
 /*
 STEP 1: Plan the Component 
@@ -86,3 +97,25 @@ To define a component, we will follow these steps:
     6. State?
     7. Events / Handling?
 */
+
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////// API CALL FUNCTIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
+///////////////////////////////////////////////////////////////////////////
+// EVENT1: User Select a Board from the BoardList
+
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////// STATE SITUATIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+// const setSelectedBoard = (boardId) => {
+//     // set selected board
+//     setActiveBoardId(boardID)
+// }
+
+// SETTING STATE // const [pieceOfState, setPieceOfState] = useState('Initial value for pieceOfState.');
+// UPDATING STATE // setPieceOfState('New value of pieceOfState.');
