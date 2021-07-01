@@ -1,50 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-
-///////////////////////////////////////////////////////////////////////////
-///////////////////////// API CALL FUNCTIONS //////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////////////////////
-/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
-///////////////////////////////////////////////////////////////////////////
-
-// EVENT2: User Clicks the Show/Hide button(s) for New Board Form
-// EVENT3: User Submits the New Board Form
-
-///////////////////////////////////////////////////////////////////////////
-/////////////////////////// STATE SITUATIONS //////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-
-////////////////////////////
-//////// show/hide ////////
-////////////////////////////
-// const toggler = () => {
-//     setToggler(!toggle);
-// }
-
-// const buttonText = toggle === true ? "Hide" : "Show";
-
-// let newBoard;
-// if(toggle) {
-//     newBoard = <NewBoardForm></NewBoardForm>
-// } else {
-//     newBoard = null;
-// }
-
-
-
 // FUNCTION that DEFINES the NewBoardForm Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
 const NewBoardForm = () => {
-                                    //SET FORM STATE//
-    const [formFields, setFormFields] = useState({ 
-        title: '',
+    const [formFields, setFormFields] = useState({                  // << This sets the FORM's state
+        title: '',    // this initial value?
         owner: ''
-    });
-                                    // name is a part of the React system - it's what it expects
-                                    // onSubmit EVENT HANDLER - POST to /boards endpoint in JSON format the submitted inputs
+    });     
+    
     const addNewBoard = (event) => {
         event.preventDefault();
         console.log(formFields)
@@ -56,8 +19,8 @@ const NewBoardForm = () => {
                 console.log(error);
             });
     }
-                                    // WHY -- You gotta wrap the formFields to Manage their current state/content at the time of the onSubmit event 
-    const wrapUpdate = (event) => {
+
+    const wrapUpdate = (event) => {                                // WHY -- You gotta wrap the formFields to Manage their current state/content at the time of the onSubmit event 
         if (event.target.name === 'title') {
             setFormFields({
                 title: event.target.value,
@@ -115,14 +78,36 @@ To define a component, we will follow these steps:
     6. State?
     7. Events / Handling?
 */
-
-/* 
-
-
-
+///////////////////////////////////////////////////////////////////////////
+///////////////////////// API CALL FUNCTIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 
+///////////////////////////////////////////////////////////////////////////
+/////////////////////// EVENT-HANDLING-FUNCTIONS //////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-*/
+// EVENT2: User Clicks the Show/Hide button(s) for New Board Form
+// EVENT3: User Submits the New Board Form
+
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////// STATE SITUATIONS //////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+////////////////////////////
+//////// show/hide ////////
+////////////////////////////
+// const toggler = () => {
+//     setToggler(!toggle);
+// }
+
+// const buttonText = toggle === true ? "Hide" : "Show";
+
+// let newBoard;
+// if(toggle) {
+//     newBoard = <NewBoardForm></NewBoardForm>
+// } else {
+//     newBoard = null;
+// }
 
 
