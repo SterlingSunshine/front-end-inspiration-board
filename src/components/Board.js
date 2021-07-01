@@ -6,20 +6,14 @@ import PropTypes from 'prop-types';
 // const title = // How do we GET the board name? onSelect right?
 
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
-const Board = (title) => {
-    return (
-        <div>
-        <h2>{title}</h2>
-        </div>
-    );    
-}
+const Board = (props) => {
+    return(
+        <section>
+            <h2>{props.board.title}</h2> 
+        </section>
 
-
-/*  
-Board.propTypes = {
-    cards: PropTypes.arrayOf
-}
-*/
+    )
+};
 
 export default Board;
 

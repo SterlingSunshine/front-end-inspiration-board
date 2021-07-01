@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 
 // Event Handling Functions
@@ -9,34 +10,53 @@ import React, {useState} from 'react';
 */
 
 // set the STATE for show/hide
-const [showForm, setShowForm] = useState('');
+// const [showForm, setShowForm] = useState('');
 
 // FUNCTION that DEFINES the NewBoardForm Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
 const NewBoardForm = () => {
-    const [formFields, setFormFields] = useState ({
+
+    const [formFields, setFormFields] = useState ({ 
         title: '',
         owner: ''
     });
 
+    const addNewBoard = (event) => {
+        event.preventDefault();
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/boards`, {formFields})
+    }
+// name is a part of the React system - it's what it expects
+    const wrapUpdate = (event) => {
+        if (event.target.name === 'title') {
+            setFormFields({
+                title: event.target.value,
+                owner: formFields.owner
+            })
+        } else {
+            setFormFields({
+                title: formFields.title,
+                owner: event.target.value
+            })
+        }
+    }
+
     return (
-        <form onSubmit={onSubmit} > 
+        <form onSubmit={addNewBoard} > 
         <div>
                 <lable htmlFor="boardTitle">Board Title</lable>
                 <input 
-                    title="boardTitle" 
-                    value={formFields.title} onChange={}/>
+                    name="title" type="text"
+                    value={formFields.title} onChange={wrapUpdate}/>
         </div>
         <div> 
                 <lable htmlFor="boardOwner">Board Owner</lable>
                 <input 
-                    owner="boardOwner" 
-                    value={formFields.owner} onChange={}/>
+                    name="owner" type="text"
+                    value={formFields.owner} onChange={wrapUpdate}/>
         </div>
         <div>
                 <button>Submit Now!</button>
         </div>
         </form>
-
     );    
 }
 
@@ -66,3 +86,14 @@ To define a component, we will follow these steps:
     6. State?
     7. Events / Handling?
 */
+
+/* 
+
+
+
+
+
+
+*/
+
+

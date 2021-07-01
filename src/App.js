@@ -6,6 +6,7 @@ import axios from 'axios';                                      // we need to us
 //BOARD-RELATED IMPORTS//
 import Board from './components/Board'
 import BoardList from './components/BoardList'
+import NewBoardForm from './components/NewBoardForm'
 
 function App() {
 
@@ -51,12 +52,12 @@ function App() {
 
           <div>
             <h2>New Board Form</h2>
+            <NewBoardForm></NewBoardForm>
           </div>
           
           <div>
             <h2>New Card Form</h2>
           </div>
-
 
           <div>
             <h2>Cards List</h2>

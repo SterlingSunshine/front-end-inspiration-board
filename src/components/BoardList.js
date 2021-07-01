@@ -9,8 +9,6 @@ import Board from './Board';
 ///////////////////////////////////////////////////////////////////////////
 
 
-
-
 // POST NEW BOARD
 // newBoard = () =>
 //     axios
@@ -58,6 +56,7 @@ const BoardList = () => {
     // GET ALL BOARDS -- by ID then you can parse out the title?
     // set drop down list of all board titles
     // return generateBoardListItems();
+    
     const [boardItems, setBoardItems] = useState([])
 
     useEffect(() => {
@@ -71,11 +70,11 @@ const BoardList = () => {
     }, []);
 
     const generateBoardListItemComponents = (items) => {
-        return <ol className="boardItems">
+        return <select className="boardItems">
             {items.map((item) => { 
-                return <li key={item.id}>{item.title}</li> 
+                return <option key={item.id}> {item.title}</option> 
             })}
-        </ol>
+        </select>
     }
 
     return generateBoardListItemComponents(boardItems)
@@ -95,7 +94,17 @@ We want to have the following UI displayed via the BoardList Component:
     ** GET (s) from the DB via a function like getAllBoards -- and presents all the titles
         ** Where should the function getAllBoards live?? App.js??
 */
+/*
 
+    const generateBoardListItemComponents = (items) => {
+        return <ol className="boardItems">
+            {items.map((item) => { 
+                return <li key={item.id}>{item.title}</li> 
+            })}
+        </ol>
+    }
+
+*/
 /*
 STEP 2: Define Component:
 To define a component, we will follow these steps:
