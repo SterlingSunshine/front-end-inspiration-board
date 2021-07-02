@@ -67,11 +67,6 @@ export default BoardList;
 
 
 
-
-
-
-
-
 /*
 STEP 1: Plan the Component 
 BoardList is a container component

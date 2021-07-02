@@ -3,6 +3,11 @@ import styled from 'styled-components'                                         /
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';                                      // we need to use axios to connect to the backend
+//CARD-RELATED IMPORTS//
+import CardList from './components/CardList'
+import Card from './components/Card'
+import NewCardForm from './components/NewCardForm'
+import CoolCards from './components/CoolCards'
 
 //BOARD-RELATED IMPORTS//
 import Board from './components/Board'
@@ -23,7 +28,7 @@ function App() {
   }
 
   const [selectedBoardItem, setSelectedBoardItem] =  useState(defaultBoardItem)         // set state for actively displayed/selected board   // store selectedBoard state by id
-
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////// SELECTED BOARD CALLBACK FUNCTION ///////////////////////////////////////////////////////////////
   const onBoardSelectCallback = (item) => {
@@ -32,7 +37,10 @@ function App() {
     console.log(item.cards)
     console.log(item.id)
     console.log(item.owner)
+
     setSelectedBoardItem(item)
+    console.log('HI')
+    console.log(selectedBoardItem)
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +50,7 @@ const AppContainer = styled.section`
     font-family: 'Annie Use Your Telescope';
     background:#666;
     color:#fff;
+    padding:2em;
     `
 
 const Title = styled.h1`
@@ -53,6 +62,7 @@ const Wrapper = styled.section`
   padding: 2em;
   background: lightblue;
 `;
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   return (
 
@@ -81,14 +91,10 @@ const Wrapper = styled.section`
             {show?<NewBoardForm/>:null}
             <button onClick={()=>setShow(!show)}> Hide/Show Form </button>
           </div>
-          
-          <div>
-            <h2>New Card Form</h2>
-          </div>
 
           <div>
             <h2>Cards List</h2>
-            {/* <CardList cards={selectedBoardItem.cards}/> */}
+            {selectedBoardItem.id ? <CardList board={selectedBoardItem}/> : ''}
           </div>
 
   </AppContainer>
@@ -96,3 +102,7 @@ const Wrapper = styled.section`
 }
 
 export default App;
+
+//     cards={selectedBoardItem.cards}  
+
+// <CardList cards={selectedBoardItem.cards}/>

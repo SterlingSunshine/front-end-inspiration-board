@@ -24,7 +24,7 @@ const BoardContainer = styled.section`
     `
 
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
-const Board = ({title, owner}) => {                                 // {title, owner} are ??props?? passed in  App.js with title={selectedBoardItem.title} owner={selectedBoardItem.owner}
+const Board = ({title, owner}) => {                               
     return(
         <BoardContainer>
             <h3>{title} - {owner}</h3> 
