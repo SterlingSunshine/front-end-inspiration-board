@@ -7,7 +7,6 @@ import axios from 'axios';                                      // we need to us
 import CardList from './components/CardList'
 import Card from './components/Card'
 import NewCardForm from './components/NewCardForm'
-import CoolCards from './components/CoolCards'
 
 //BOARD-RELATED IMPORTS//
 import Board from './components/Board'
@@ -32,15 +31,7 @@ function App() {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////// SELECTED BOARD CALLBACK FUNCTION ///////////////////////////////////////////////////////////////
   const onBoardSelectCallback = (item) => {
-    console.log(item)
-    console.log(item.title)
-    console.log(item.cards)
-    console.log(item.id)
-    console.log(item.owner)
-
     setSelectedBoardItem(item)
-    console.log('HI')
-    console.log(selectedBoardItem)
   }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,13 +45,26 @@ const AppContainer = styled.section`
     `
 
 const Title = styled.h1`
-  font-size: 1.5em;
+  font-size: 2.5em;
   text-align: center;
   color: darkblue;
 `;
 const Wrapper = styled.section`
-  padding: 2em;
+  padding: .03em;
   background: lightblue;
+`;
+
+const Subtitle = styled.h2`
+  font-size: 2em;
+  margin: 20px auto;
+  display: flex;
+  text-align: left;
+  color: white;
+  justify-content: left;
+  padding:.1em;
+`;
+const Wrap = styled.div`
+  background: teal;
 `;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,31 +73,34 @@ const Wrapper = styled.section`
     <AppContainer>
     <Wrapper>
       <Title>
-          <h1>
+
             Inspiration Board
-          </h1>
         </Title>
     </Wrapper>
 
-
           <div>
-            <h2>Boards</h2>
+          <Wrap>
+            <Subtitle>* ⚓ Boards</Subtitle>
+          </Wrap>
             <BoardList onBoardSelectCallback={onBoardSelectCallback} />
           </div>  
 
           <div>
-            <h2>Selected Boards</h2>
+          <Wrap>
+            <Subtitle>* ⚓ Selected Board</Subtitle>
+          </Wrap>
             <Board title={selectedBoardItem.title} owner={selectedBoardItem.owner}/>
           </div>
 
           <div>
-            <h2>Create A New Board</h2>
+          <Wrap>
+            <Subtitle>* ⚓ Create a New Board</Subtitle>
+          </Wrap>
             {show?<NewBoardForm/>:null}
             <button onClick={()=>setShow(!show)}> Hide/Show Form </button>
           </div>
 
           <div>
-            <h2>Cards List</h2>
             {selectedBoardItem.id ? <CardList board={selectedBoardItem}/> : ''}
           </div>
 
@@ -102,7 +109,3 @@ const Wrapper = styled.section`
 }
 
 export default App;
-
-//     cards={selectedBoardItem.cards}  
-
-// <CardList cards={selectedBoardItem.cards}/>

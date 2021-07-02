@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 const NewCardForm = (props) => {
 
     const [message, setMessage] = useState('');
@@ -32,6 +31,4 @@ export default NewCardForm;
 
 
 
-
-
-/// This is a newsted component that lives inside the CardList component//////
+/// This is a nested component that lives inside the CardList component//////

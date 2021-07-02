@@ -54,9 +54,9 @@ const BoardList = ({onBoardSelectCallback}) => {
 
     const generateBoardListItemComponents = (items) => {
         return <DropDownContainer className="boardItems" onChange={onBoardSelectChange}>
-            <OptionContainer default>Select Your Board</OptionContainer>
+            <option default>Select Your Board</option>
             {items.map((item) => { 
-                return <OptionContainer key={item.id} value={item.id}>{item.title}</OptionContainer> 
+                return <option key={item.id} value={item.id}>{item.title}</option> 
             })}
         </DropDownContainer>
     }
@@ -64,7 +64,6 @@ const BoardList = ({onBoardSelectCallback}) => {
 };
 
 export default BoardList;
-
 
 
 /*
