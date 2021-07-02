@@ -27,10 +27,6 @@ const DropDownContainer = styled.select`
     top:-10px;
     `
 
-const OptionContainer = styled.option`
-
-    `
-
 // FUNCTION that DEFINES the Board Component // A Component function should: 1. be named after the component 2. return one JSX object that represents how to render this component
 const BoardList = ({onBoardSelectCallback}) => {
 

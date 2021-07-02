@@ -49,7 +49,7 @@ const CardList = (props) => {
 
     const cardListComponents = cardData.map((card)=> {
         return( 
-            <li className="postIt" key={card.id}>
+            <li key={card.id}>
                 <Card
                     card = {card}
                     addLikeToCard={addLikeToCard}
